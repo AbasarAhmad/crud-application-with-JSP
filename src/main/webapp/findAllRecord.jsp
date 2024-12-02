@@ -1,16 +1,14 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Connection,java.sql.DriverManager,java.sql.PreparedStatement" %>
 <% 
-Integer  empNo =Integer.parseInt(request.getParameter("empNo"));
-String sql = "select*from employee where empNo=?";
+String sql = "select*from employee";
 	//load driver
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	// We make connection
 	Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/crud","root","Riyaz@31200");
 	PreparedStatement ps=connection.prepareStatement(sql);
-	ps.setInt(1, empNo);
 	ResultSet resultSet=ps.executeQuery();
-	out.println("<table border=1>");
+	out.println("<table>");
 			out.println("<tr>");
 				out.println("<td>");
 				out.println("empNo");
@@ -25,7 +23,7 @@ String sql = "select*from employee where empNo=?";
 				out.println("</td>");
 			out.println("</tr>");
 	
-	if(resultSet.next())
+	while(resultSet.next())
 	{
 		out.println("<tr>");
 		out.println("<td>");
